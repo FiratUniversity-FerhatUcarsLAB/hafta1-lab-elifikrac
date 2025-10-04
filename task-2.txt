@@ -1,4 +1,67 @@
-Öğrenci No:
-AD-SOYAD:
+Öğrenci No: 250541010
+AD-SOYAD: Elif İkra ÇAKMAK
 
-Lütfen seçtiğiniz algoritmaya ait çözümü ve diğer isterleri aşağıya ekleyiniz:
+Basit Kart Oyunu Stratejisi Algoritması:
+
+    BAŞLA
+
+    // 1. Başlangıç değişkenleri
+    oyuncuKartlari ← [3, 5, 7, 9, 11]
+    rakipKartlari ← [2, 4, 6, 8, 10]
+    oyuncuPuan ← 0
+    rakipPuan ← 0
+    tur ← 1
+
+    // 2. Oyun başlasın
+    WHILE oyuncuKartlari BOŞ DEĞİL VE rakipKartlari BOŞ DEĞİL DO
+
+        YAZ("=== ", tur, ". TUR ===")
+
+        // Rakip rastgele bir kart seçer
+        rakipKarti ← RastgeleSec(rakipKartlari)
+        rakipKartlari ← rakipKartlari - {rakipKarti}
+        YAZ("Rakip kartı: ", rakipKarti)
+
+        // Oyuncu stratejik olarak kart seçer
+        uygunKartlar ← [her kart ∈ oyuncuKartlari | kart > rakipKarti]
+
+        IF uygunKartlar BOŞ DEĞİL İSE
+            // Geçebilen en küçük kartı seç
+            oyuncuKarti ← Minimum(uygunKartlar)
+        DEĞİLSE
+            // Geçemiyorsa, en küçük kartı feda et
+            oyuncuKarti ← Minimum(oyuncuKartlari)
+        SON
+
+        oyuncuKartlari ← oyuncuKartlari - {oyuncuKarti}
+        YAZ("Oyuncu kartı: ", oyuncuKarti)
+
+        // 3. Turu kimin kazandığını kontrol et
+        IF oyuncuKarti > rakipKarti THEN
+            oyuncuPuan ← oyuncuPuan + 1
+            YAZ("Oyuncu turu kazandı!")
+        ELSE IF oyuncuKarti < rakipKarti THEN
+            rakipPuan ← rakipPuan + 1
+            YAZ("Rakip turu kazandı!")
+        ELSE
+            YAZ("Berabere!")
+        SON
+
+        tur ← tur + 1
+
+    SON WHILE
+
+    // 4. Oyunun sonu – kazananı belirle
+    YAZ("=== OYUN BİTTİ ===")
+    YAZ("Oyuncu puanı: ", oyuncuPuan)
+    YAZ("Rakip puanı: ", rakipPuan)
+
+    IF oyuncuPuan > rakipPuan THEN
+        YAZ("Kazanan: Oyuncu 🏆")
+    ELSE IF rakipPuan > oyuncuPuan THEN
+        YAZ("Kazanan: Rakip 💀")
+    ELSE
+        YAZ("Oyun berabere!")
+    SON
+
+    BİTİR
