@@ -1,4 +1,81 @@
-Öğrenci No:
-AD-SOYAD:
+Öğrenci No: 250541010
+AD-SOYAD: Elif İkra ÇAKMAK
 
-Lütfen seçtiğiniz algoritmaya ait çözümü ve diğer isterleri aşağıya ekleyiniz:
+Sınav Planı Oluşturma Algoritması:
+Başla
+
+    Yaz "Bugünün tarihini girin (YYYY-MM-DD):"
+    oku bugun_tarihi
+
+    Yaz "Sınav tarihini girin (YYYY-MM-DD):"
+    oku sinav_tarihi
+
+    gün_sayisi ← sinav_tarihi - bugun_tarihi
+
+    Eğer gün_sayisi <= 0 ise
+        Yaz "Hatalı tarih girdiniz. Sınav tarihi geçmiş."
+        Bitir
+    BitEğer
+
+    Yaz "Günlük maksimum çalışma süresini girin (saat):"
+    oku gunluk_maks_saat
+
+    konu_listesi ← boş liste
+    konu_sureleri ← boş sözlük
+
+    Tekrar
+        Yaz "Bir konu adı girin (veya 'bitir' yaz):"
+        oku konu
+        Eğer konu = "bitir" ise
+            çık
+        BitEğer
+        Yaz konu + " konusu için toplam kaç saat çalışmak istiyorsunuz?"
+        oku saat
+        konu_listesi'ne konu ekle
+        konu_sureleri[konu] ← saat
+    Son Tekrar
+
+    toplam_gerekli_saat ← 0
+    her_konu_kalan_sure ← konu_sureleri'ni kopyala
+
+    konu için her_konu_kalan_sure içindeki
+        toplam_gerekli_saat ← toplam_gerekli_saat + her_konu_kalan_sure[konu]
+    Son Tekrar
+
+    toplam_çalışma_kapasitesi ← gün_sayisi * gunluk_maks_saat
+
+    Eğer toplam_gerekli_saat > toplam_çalışma_kapasitesi ise
+        Yaz "Uyarı: Bu kadar sürede bu kadar çalışamazsınız. Planı küçültmelisiniz."
+        Bitir
+    BitEğer
+
+    plan ← boş liste
+
+    gün ← 1
+
+    Konular bitene kadar
+        günlük_kalan_saat ← gunluk_maks_saat
+        günlük_plan ← boş liste
+
+        konu için konu_listesi içinde sırayla
+            Eğer her_konu_kalan_sure[konu] > 0 ise
+                calisma_suresi ← minimum(her_konu_kalan_sure[konu], günlük_kalan_saat)
+                günlük_plan'a (konu, calisma_suresi) ekle
+                her_konu_kalan_sure[konu] ← her_konu_kalan_sure[konu] - calisma_suresi
+                günlük_kalan_saat ← günlük_kalan_saat - calisma_suresi
+            BitEğer
+        Son Tekrar
+
+        plan'a (gün, günlük_plan) ekle
+        gün ← gün + 1
+    Son Konular bitene kadar
+
+    Yaz "Çalışma Planı:"
+    her_gün için plan içinde
+        Yaz "Gün " + her_gün.gün + ":"
+        her_konu için her_gün.günlük_plan içinde
+            Yaz her_konu.konu + " - " + her_konu.saat + " saat"
+        Son Tekrar
+    Son Tekrar
+
+Bitir
