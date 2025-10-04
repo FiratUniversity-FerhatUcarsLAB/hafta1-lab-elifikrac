@@ -1,4 +1,55 @@
 Öğrenci No:
 AD-SOYAD:
 
-Lütfen seçtiğiniz algoritmaya ait çözümü ve diğer isterleri aşağıya ekleyiniz:
+Renkleri Karıştırarak Hedef Rengi Elde Etme Algoritması:
+
+    BAŞLA
+
+    // 1. Başlangıç değerleri
+    hedefRenk ← (120, 200, 150)
+    mevcutRenk ← (0, 0, 0)
+    adim ← 1
+    tolerans ← 5   // Hedefe yeterince yakın sayılacak fark aralığı
+
+    // 2. Hedefe ulaşılana kadar döngü
+    WHILE (RenkFarki(mevcutRenk, hedefRenk) > tolerans) DO
+        
+        YAZ("==== ", adim, ". ADIM ====")
+        YAZ("Mevcut renk: ", mevcutRenk)
+
+        // 3. Her renk kanalı için ayrı ayrı kontrol et
+        // R (Kırmızı)
+        IF mevcutRenk.R < hedefRenk.R THEN
+            mevcutRenk.R ← mevcutRenk.R + 1
+        ELSE IF mevcutRenk.R > hedefRenk.R THEN
+            mevcutRenk.R ← mevcutRenk.R - 1
+        SON
+
+        // G (Yeşil)
+        IF mevcutRenk.G < hedefRenk.G THEN
+            mevcutRenk.G ← mevcutRenk.G + 1
+        ELSE IF mevcutRenk.G > hedefRenk.G THEN
+            mevcutRenk.G ← mevcutRenk.G - 1
+        SON
+
+        // B (Mavi)
+        IF mevcutRenk.B < hedefRenk.B THEN
+            mevcutRenk.B ← mevcutRenk.B + 1
+        ELSE IF mevcutRenk.B > hedefRenk.B THEN
+            mevcutRenk.B ← mevcutRenk.B - 1
+        SON
+
+        // 4. Yeni renk farkını hesapla
+        fark ← RenkFarki(mevcutRenk, hedefRenk)
+        YAZ("Yeni fark: ", fark)
+
+        adim ← adim + 1
+
+    SON WHILE
+
+    // 5. Hedef renge ulaşıldı
+    YAZ("✅ Hedef renge ulaşıldı!")
+    YAZ("Son renk: ", mevcutRenk)
+    YAZ("Toplam adım: ", adim - 1)
+
+    BİTİR
