@@ -2,6 +2,7 @@
 AD-SOYAD: Elif İkra ÇAKMAK
 
 Ideal Kahve Demleme Algoritması:
+
 // 1. Başlangıç
     BAŞLA
     kahveTürü ← KULLANICIDAN_GİRİŞ_AL("Kahve türünü seçiniz (Filtre, Espresso, FrenchPress): ")
