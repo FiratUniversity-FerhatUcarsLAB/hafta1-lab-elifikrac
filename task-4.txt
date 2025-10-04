@@ -1,5 +1,5 @@
-Öğrenci No:
-AD-SOYAD:
+Öğrenci No: 250541010
+AD-SOYAD: Elif İkra ÇAKMAK
 
 Renkleri Karıştırarak Hedef Rengi Elde Etme Algoritması:
 
