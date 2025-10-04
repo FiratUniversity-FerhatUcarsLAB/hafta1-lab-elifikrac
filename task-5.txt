@@ -1,4 +1,76 @@
-Öğrenci No:
-AD-SOYAD:
+Öğrenci No: 250541010
+AD-SOYAD: Elif İkra ÇAKMAK
 
-Lütfen seçtiğiniz algoritmaya ait çözümü ve diğer isterleri aşağıya ekleyiniz:
+Ideal Kahve Demleme Algoritması:
+// 1. Başlangıç
+    BAŞLA
+    kahveTürü ← KULLANICIDAN_GİRİŞ_AL("Kahve türünü seçiniz (Filtre, Espresso, FrenchPress): ")
+    suSıcaklığı ← 0
+    demlemeSüresi ← 0
+    öğütmeDerecesi ← 0
+
+    // 2. Kahve türüne göre ideal parametreleri belirle
+    EĞER kahveTürü = "Filtre" İSE
+        suSıcaklığı ← 92
+        demlemeSüresi ← 240  // saniye
+        öğütmeDerecesi ← "Orta"
+    DEĞİLSE EĞER kahveTürü = "Espresso" İSE
+        suSıcaklığı ← 93
+        demlemeSüresi ← 25
+        öğütmeDerecesi ← "İnce"
+    DEĞİLSE EĞER kahveTürü = "FrenchPress" İSE
+        suSıcaklığı ← 96
+        demlemeSüresi ← 300
+        öğütmeDerecesi ← "Kalın"
+    DEĞİLSE
+        YAZ("Geçersiz kahve türü! Program sonlandırılıyor.")
+        BİTİR
+    SON
+
+    // 3. Su sıcaklığını kontrol et ve ayarla
+    SUYU_ISIT()
+    SU_SICAKLIK ← SU_SICAKLIĞINI_ÖLÇ()
+    EĞER SU_SICAKLIK < suSıcaklığı - 1 VEYA SU_SICAKLIK > suSıcaklığı + 1 İSE
+        SUYU_AJUSTE_ET(suSıcaklığı)
+    SON
+
+    // 4. Kahve- su oranını belirle (1:15 oranı)
+    kahveMiktarı ← KULLANICIDAN_GİRİŞ_AL("Kaç gram kahve kullanmak istersiniz?")
+    suMiktarı ← kahveMiktarı * 15
+
+    // 5. Öğütme derecesini kontrol et
+    EĞER MEVCUT_ÖĞÜTME_DERECESİ() ≠ öğütmeDerecesi İSE
+        ÖĞÜTMEYİ_AYARLA(öğütmeDerecesi)
+    SON
+
+    // 6. Demleme başlat
+    ZAMANLAYICI_BAŞLAT(demlemeSüresi)
+    suEklemeAdımı ← 0
+
+    // 7. Kahve dökme aşamaları (örneğin pour-over için)
+    TEKRAR ET
+        DÖK_SU(kahveÜzerine, suMiktarı / 4)
+        suEklemeAdımı ← suEklemeAdımı + 1
+        BEKLE(30)  // 30 saniye aralıklarla dök
+    SÜRECE suEklemeAdımı = 4 OLANA KADAR
+
+    // 8. Demleme tamamlanana kadar bekle
+    DEMLEME_BİTENE_KADAR BEKLE()
+
+    // 9. Tadım kalitesini değerlendir
+    tatSonucu ← TADIM_YAP()
+    EĞER tatSonucu = "Acı" İSE
+        demlemeSüresi ← demlemeSüresi - 10
+        suSıcaklığı ← suSıcaklığı - 1
+    DEĞİLSE EĞER tatSonucu = "Zayıf" İSE
+        demlemeSüresi ← demlemeSüresi + 10
+        suSıcaklığı ← suSıcaklığı + 1
+    SON
+
+    // 10. Kullanıcıya rapor ver
+    YAZ("Kahve türü: " + kahveTürü)
+    YAZ("Kullanılan su miktarı: " + suMiktarı + " ml")
+    YAZ("Demleme süresi: " + demlemeSüresi + " saniye")
+    YAZ("Sonuç: " + tatSonucu)
+
+BİTİR
