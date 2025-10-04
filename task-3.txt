@@ -1,4 +1,52 @@
-Öğrenci No:
-AD-SOYAD:
+Öğrenci No: 250541010
+AD-SOYAD: Elif İkra Çakmak
 
-Lütfen seçtiğiniz algoritmaya ait çözümü ve diğer isterleri aşağıya ekleyiniz:
+Müzik Koleksiyonunu Düzenleme Algoritması:
+
+    // 1. Başlangıç
+    BAŞLA
+    koleksiyon ← TÜM_MUZIK_DOSYALARINI_AL("MüzikKlasörüYolu")
+
+    // 2. Her bir dosyayı sırayla işle
+    HER dosya İÇİN koleksiyon İÇİNDE YAP
+        BİLGİ ← METADATA_ÇÖZÜMLE(dosya)
+
+        // 3. Eksik bilgi varsa kontrol et
+        EĞER BİLGİ.sanatçı = BOŞ VEYA BİLGİ.şarkıAdı = BOŞ İSE
+            BİLGİ ← KULLANICIDAN_GİRİŞ_AL(dosya)
+        SON
+
+        // 4. Yinelenen (duplicate) dosyaları kontrol et
+        EĞER DOSYA_AYNI_MI(dosya, koleksiyon) = DOĞRU İSE
+            SİL(dosya)
+            DEVAM_ET // bir sonraki dosyaya geç
+        SON
+
+        // 5. Türüne göre klasör belirle
+        EĞER BİLGİ.tür = "Rock" İSE
+            hedefKlasör ← "Müzik/Rock"
+        DEĞİLSE EĞER BİLGİ.tür = "Pop" İSE
+            hedefKlasör ← "Müzik/Pop"
+        DEĞİLSE EĞER BİLGİ.tür = "Klasik" İSE
+            hedefKlasör ← "Müzik/Klasik"
+        DEĞİLSE
+            hedefKlasör ← "Müzik/Diğer"
+        SON
+
+        // 6. Dosyayı uygun klasöre taşı
+        DOSYAYI_TAŞI(dosya, hedefKlasör)
+
+        // 7. Dosya adını standart biçimde yeniden adlandır
+        // Örnek format: "Sanatçı - ŞarkıAdı (Yıl).mp3"
+        yeniAd ← BİLGİ.sanatçı + " - " + BİLGİ.şarkıAdı + " (" + BİLGİ.yıl + ")." + BİLGİ.uzantı
+        DOSYA_ADINI_DEĞİŞTİR(dosya, yeniAd)
+    SON // döngü sonu
+
+    // 8. Koleksiyonu sıralı liste olarak kaydet
+    SIRALI_LISTE ← SIRALA(koleksiyon, ölçüt = "Sanatçı > Albüm > Yıl")
+    LİSTEYİ_KAYDET(SIRALI_LISTE, "MüzikKoleksiyonu_Listesi.txt")
+
+    // 9. Özet rapor oluştur
+    RAPOR_OLUŞTUR(toplamDosyaSayısı, taşınanDosyaSayısı, silinenTekrarSayısı)
+
+BİTİR
